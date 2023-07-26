@@ -3,10 +3,11 @@ const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const passport = require("passport");
+const bcrypt = require("bcryptjs")
 
 
 exports.sign_up_get = asyncHandler(async (req, res, next) => {
-    res.render('signup');
+    res.render('signup', { title: "Sign up" });
 })
 
 exports.sign_up_post = [
@@ -44,27 +45,55 @@ exports.sign_up_post = [
         }),
 
     asyncHandler(async (req, res, next) => {
-        const errors = validationResult(req);
+        bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+            if (err) {
+              return next(err);
+            } else {
+                const errors = validationResult(req);
 
-        const user = new User({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            password: req.body.password,
-            membership: req.body.admin ? "Admin" : "User"
-        })
-        if (!errors.isEmpty()) {
-            console.log("here")
-            res.render('signup', { title: "Sign Up", user: user, errs: errors.errors })
-        } else {
+                const user = new User({
+                    first_name: req.body.first_name,
+                    last_name: req.body.last_name,
+                    email: req.body.email,
+                    password: hashedPassword,
+                    membership: req.body.admin ? "Admin" : "User"
+                })
 
-            await user.save();
-            res.redirect('/');
-        }
+                if (!errors.isEmpty()) {
+                    user.password = req.body.password;
+                    res.render('signup', { title: 'Sign Up', user: user, errs: errors.errors })
+                } else {
+                    await user.save();
+                    res.redirect('/');
+                }
+            }
+        });
+
     })
 ]
 
-exports.log_in_post = passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/"
+exports.log_in_get = asyncHandler(async (req, res, next) => {
+    res.render('login', { title: "log in" });
 })
+
+exports.log_in_post = function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err) }
+        if (!user) {
+          return res.render('login', { title: "Log in", message: info.message })
+        }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          return res.redirect('/');
+        });
+      })(req, res, next);
+}   
+
+exports.log_out = (function(req, res, next) {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/");
+    });
+});

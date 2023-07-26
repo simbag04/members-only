@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+    h1= title 
+    form(action="/log-in" method="POST") 
+        .form-group.flex.vertical 
+            label(for="username")
+            input#username(type="email" required="true" name="username" placeholder="Email")
+            label(for="password")
+            input#password(type="password" required="true" name="password" placeholder="Password")
+
+        button(type="submit") Log in
+
+    if message 
+        p= message

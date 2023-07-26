@@ -3,3 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  a(href="/log-in") Log in 
+  a(href="/sign-up") Sign up
+  a(href="/log-out") Log Out 
+
+  if user 
+    p= user.email 
+
