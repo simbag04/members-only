@@ -1,0 +1,47 @@
+extends layout 
+
+block content 
+    form(action="", method="POST")
+        div.form-group.flex.horizontal 
+            label(for="first_name") 
+            input#first_name(type="text" 
+                            required="true" 
+                            placeholder="First name" 
+                            name="first_name"
+                            value=(user===undefined ? '' : user.first_name))
+            label(for="last_name") 
+            input#last_name(type="text" 
+                            required="true" 
+                            placeholder="Last name" 
+                            name="last_name"
+                            value=(user===undefined ? '' : user.last_name))
+        div.form-group.flex.vertical
+            label(for="email") 
+            input#email(type="email" 
+                            required="true" 
+                            placeholder="Email" 
+                            name="email"
+                            value=(user===undefined ? '' : user.email))
+            label(for="password") 
+            input#password(type="password" 
+                            required="true" 
+                            placeholder="Password" 
+                            name="password"
+                            value=(user===undefined ? '' : user.password))
+            label(for="confirm_password") 
+            input#confirm_password(type="password" 
+                            required="true" 
+                            placeholder="Password" 
+                            name="confirm_password"
+                            value=(user===undefined ? '' : user.password))
+        div.form-group
+            label(for="admin") Would you like to be an admin?
+            input#admin(type="checkbox" 
+                            name="admin" 
+                            checked=(user===undefined ? 
+                                        false : user.membership==="Admin" ? true : false))
+        button(type="submit") Sign up
+
+    if errs 
+        for err in errs 
+            div= err.msg 
