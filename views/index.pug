@@ -11,6 +11,18 @@ block content
       a(href="/join-club") Join Club 
     else 
       p You're a member!
+    
+    a(href="/create-message") Create Message 
     p= user.email 
     a(href="/log-out") Log Out  
+
+  if messages 
+    for msg in messages 
+      .message 
+        h3= msg.title 
+        p= msg.message
+        if !user || !user.member 
+          span Written by Anonymous 
+        else 
+          span Written by #{msg.created_by.email}
 

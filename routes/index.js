@@ -4,9 +4,7 @@ const authController = require('../controllers/authController');
 const clubController = require('../controllers/clubController')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', user: req.user });
-});
+router.get('/', clubController.index);
 
 // User Authorization controls
 router.get('/sign-up', authController.sign_up_get)
@@ -20,6 +18,9 @@ router.get('/log-out', authController.log_out);
 // Club controls
 router.get('/join-club', clubController.join_club_get)
 router.post('/join-club', clubController.join_club_post)
+
+router.get('/create-message', clubController.create_message_get);
+router.post('/create-message', clubController.create_message_post);
 
 
 
