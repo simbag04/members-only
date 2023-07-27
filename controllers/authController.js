@@ -54,8 +54,7 @@ exports.sign_up_post = [
                     first_name: req.body.first_name,
                     last_name: req.body.last_name,
                     email: req.body.email,
-                    password: hashedPassword,
-                    admin: req.body.admin ? true : false
+                    password: hashedPassword
                 })
 
                 if (!errors.isEmpty()) {

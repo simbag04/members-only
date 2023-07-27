@@ -19,8 +19,13 @@ router.get('/log-out', authController.log_out);
 router.get('/join-club', clubController.join_club_get)
 router.post('/join-club', clubController.join_club_post)
 
+router.get('/become-admin', clubController.become_admin_get)
+router.post('/become-admin', clubController.become_admin_post)
+
 router.get('/create-message', clubController.create_message_get);
 router.post('/create-message', clubController.create_message_post);
+
+router.post('/delete/:id', clubController.delete_message_post)
 
 
 

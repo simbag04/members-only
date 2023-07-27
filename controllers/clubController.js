@@ -46,6 +46,19 @@ exports.join_club_post = [
     })
 ]
 
+exports.become_admin_get = asyncHandler(async (req, res, next) => {
+    res.render('becomeadmin', { title: "Become Admin" })
+})
+
+exports.become_admin_post = asyncHandler(async(req, res, next) => {
+    console.log(req.body.admin)
+    const user = await User.findOne({ email: res.locals.currentUser.email });
+    user.admin = req.body.admin ? true : false;
+    await User.findByIdAndUpdate(user._id, user, {})
+    console.log(user);
+    res.redirect('/')
+})
+
 exports.create_message_get = asyncHandler(async(req, res, next) => {
     res.render('createmessage', { title: "Create Message" })
 })
@@ -77,3 +90,8 @@ exports.create_message_post = [
         }
     })
 ]
+
+exports.delete_message_post = asyncHandler(async(req, res, next) => {
+    await Message.findByIdAndRemove(req.params.id).exec();
+    res.redirect('/')
+})
