@@ -25,6 +25,7 @@ router.post('/become-admin', clubController.become_admin_post)
 router.get('/create-message', clubController.create_message_get);
 router.post('/create-message', clubController.create_message_post);
 
+router.get('/delete/:id', clubController.delete_message_get)
 router.post('/delete/:id', clubController.delete_message_post)
 
 

@@ -37,6 +37,10 @@ block content
                             value=(user===undefined ? '' : user.password))
 
         button(type="submit") Sign up
+    p  
+        | Already have an account? 
+        a(href="/log-in") Log in
+    a(href="/") Home
 
     if errs 
         for err in errs 

@@ -17,6 +17,8 @@ block content
                             value=(message===undefined ? '' : message.message))
         button(type="submit") Create Message
 
+    a(href="/") Home
+
     if errors 
         for error in errors
             div= error.msg 

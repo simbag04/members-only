@@ -13,6 +13,11 @@ exports.index = asyncHandler(async (req, res, next) => {
 })
 
 exports.join_club_get = asyncHandler(async (req, res, next) => {
+    if (!res.locals.currentUser) {
+        const err = new Error("You must be logged in to join the club!");
+        err.status = 404;
+        return next(err);
+    }
     res.render('joinclub', { title: "Join Club" })
 })
 
@@ -47,15 +52,18 @@ exports.join_club_post = [
 ]
 
 exports.become_admin_get = asyncHandler(async (req, res, next) => {
+    if (!res.locals.currentUser) {
+        const err = new Error("You must be logged in to become an admin!");
+        err.status = 404;
+        return next(err);
+    }
     res.render('becomeadmin', { title: "Become Admin" })
 })
 
 exports.become_admin_post = asyncHandler(async(req, res, next) => {
-    console.log(req.body.admin)
     const user = await User.findOne({ email: res.locals.currentUser.email });
     user.admin = req.body.admin ? true : false;
     await User.findByIdAndUpdate(user._id, user, {})
-    console.log(user);
     res.redirect('/')
 })
 
@@ -72,7 +80,12 @@ exports.create_message_post = [
         .isLength({min: 1}),   
         
     asyncHandler(async(req, res, next) => {
-        console.log(res.locals.currentUser)
+        if (!res.locals.currentUser) {
+            const err = new Error("You must be logged in to create a message!");
+            err.status = 404;
+            return next(err);
+        }
+
         const errors = validationResult(req);
         const message = new Message({
             title: req.body.title,
@@ -90,6 +103,18 @@ exports.create_message_post = [
         }
     })
 ]
+
+exports.delete_message_get = asyncHandler(async(req, res, next) => {
+    const message = await Message.findById(req.params.id).populate("created_by");
+    if (message == null) {
+        const err = new Error("Message not found");
+        err.status = 404;
+        return next(err);
+    }
+    res.render('deletemessage', { title: "Delete Message", 
+                                    user: res.locals.currentUser, 
+                                    msg: message})
+})
 
 exports.delete_message_post = asyncHandler(async(req, res, next) => {
     await Message.findByIdAndRemove(req.params.id).exec();

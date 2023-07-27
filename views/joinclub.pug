@@ -8,6 +8,7 @@ block content
         input#passcode(type="text" name="passcode" required="true" placeholder="Enter Passcode")
         button(type="submit") Join
 
+    a(href="/") Home
     if errors 
         for err in errors 
             p= err.msg

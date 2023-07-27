@@ -32,8 +32,9 @@ block content
           div Written by #{msg.created_by.email} on #{msg.formatted_time}
 
         if user && user.admin 
-          .delete-form 
-            form(action=`/delete/${msg._id}` method="POST") 
-              button(type="submit") Delete Message
+          a(href=`/delete/${msg._id}`) Delete Message 
+
+  else 
+    p No messages yet!
 
 
