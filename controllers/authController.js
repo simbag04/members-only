@@ -5,7 +5,6 @@ const asyncHandler = require("express-async-handler");
 const passport = require("passport");
 const bcrypt = require("bcryptjs")
 
-
 exports.sign_up_get = asyncHandler(async (req, res, next) => {
     res.render('signup', { title: "Sign up" });
 })
@@ -56,7 +55,7 @@ exports.sign_up_post = [
                     last_name: req.body.last_name,
                     email: req.body.email,
                     password: hashedPassword,
-                    membership: req.body.admin ? "Admin" : "User"
+                    admin: req.body.admin ? true : false
                 })
 
                 if (!errors.isEmpty()) {
@@ -73,7 +72,7 @@ exports.sign_up_post = [
 ]
 
 exports.log_in_get = asyncHandler(async (req, res, next) => {
-    res.render('login', { title: "log in" });
+    res.render('login', { title: "Log in" });
 })
 
 exports.log_in_post = function(req, res, next) {

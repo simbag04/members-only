@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+    h1= title 
+    h3 Enter the passcode here to join the club
+    form(action="/join-club" method="POST") 
+        label(for="passcode") 
+        input#passcode(type="text" name="passcode" required="true" placeholder="Enter Passcode")
+        button(type="submit") Join
+
+    if errors 
+        for err in errors 
+            p= err.msg
