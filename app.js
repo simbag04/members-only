@@ -7,12 +7,13 @@ require('dotenv').config();
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const User = require("./models/user")
+
+var indexRouter = require('./routes/index');
+const User = require('./models/user')
 const bcrypt = require("bcryptjs")
 const compression = require("compression");
 const helmet = require("helmet");
 
-var indexRouter = require('./routes/index');
 
 var app = express();
 
