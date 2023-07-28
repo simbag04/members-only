@@ -1,20 +1,26 @@
 extends layout 
 
-block content 
-    h1= title 
-    form(action="/log-in" method="POST") 
-        .form-group.flex.vertical 
-            label(for="username")
-            input#username(type="email" required="true" name="username" placeholder="Email")
-            label(for="password")
-            input#password(type="password" required="true" name="password" placeholder="Password")
-
-        button(type="submit") Log in
-
-    p  
-        | Don't have an account? 
-        a(href="/sign-up") Sign up
+block links 
     a(href="/") Home
 
-    if message 
-        p= message
+block content 
+ 
+    form(action="/log-in" method="POST") 
+        .sign-up-form
+            .input-group 
+                label(for="username")
+                input#username(type="email" required="true" name="username" placeholder="Email")
+
+            .input-group 
+                label(for="password")
+                input#password(type="password" required="true" name="password" placeholder="Password")
+
+            button(type="submit") Log in
+
+            p  Don't have an account? 
+            a(href="/sign-up") Sign up
+
+
+    .errs 
+        if message 
+            p= message

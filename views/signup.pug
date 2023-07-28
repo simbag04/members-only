@@ -1,47 +1,55 @@
 extends layout 
 
-block content 
-    h1= title
-    form(action="", method="POST")
-        div.form-group.flex.horizontal 
-            label(for="first_name") 
-            input#first_name(type="text" 
-                            required="true" 
-                            placeholder="First name" 
-                            name="first_name"
-                            value=(user===undefined ? '' : user.first_name))
-            label(for="last_name") 
-            input#last_name(type="text" 
-                            required="true" 
-                            placeholder="Last name" 
-                            name="last_name"
-                            value=(user===undefined ? '' : user.last_name))
-        div.form-group.flex.vertical
-            label(for="email") 
-            input#email(type="email" 
-                            required="true" 
-                            placeholder="Email" 
-                            name="email"
-                            value=(user===undefined ? '' : user.email))
-            label(for="password") 
-            input#password(type="password" 
-                            required="true" 
-                            placeholder="Password" 
-                            name="password"
-                            value=(user===undefined ? '' : user.password))
-            label(for="confirm_password") 
-            input#confirm_password(type="password" 
-                            required="true" 
-                            placeholder="Confirm Password" 
-                            name="confirm_password"
-                            value=(user===undefined ? '' : user.password))
-
-        button(type="submit") Sign up
-    p  
-        | Already have an account? 
-        a(href="/log-in") Log in
+block links 
     a(href="/") Home
 
-    if errs 
-        for err in errs 
-            div= err.msg 
+block content 
+    form(action="", method="POST")
+        .sign-up-form
+            .input-group  
+                label(for="first_name") 
+                input#first_name(type="text" 
+                                required="true" 
+                                placeholder="First name" 
+                                name="first_name"
+                                value=(user===undefined ? '' : user.first_name))
+            
+            .input-group 
+                label(for="last_name") 
+                input#last_name(type="text" 
+                                required="true" 
+                                placeholder="Last name" 
+                                name="last_name"
+                                value=(user===undefined ? '' : user.last_name))
+            
+            .input-group 
+                label(for="email") 
+                input#email(type="email" 
+                                required="true" 
+                                placeholder="Email" 
+                                name="email"
+                                value=(user===undefined ? '' : user.email))
+            .input-group 
+                label(for="password") 
+                input#password(type="password" 
+                                required="true" 
+                                placeholder="Password" 
+                                name="password"
+                                value=(user===undefined ? '' : user.password))
+
+            .input-group 
+                label(for="confirm_password") 
+                input#confirm_password(type="password" 
+                                required="true" 
+                                placeholder="Confirm Password" 
+                                name="confirm_password"
+                                value=(user===undefined ? '' : user.password))
+
+            button(type="submit") Sign up
+            p  Already have an account? 
+            a(href="/log-in") Log in
+    
+    .errs 
+        if errs 
+            for err in errs 
+                div= err.msg 

@@ -1,38 +1,39 @@
 extends layout
 
-block content
-  h1= title
-  p Welcome to #{title}
+block links 
   if !user
     a(href="/log-in") Log in 
     a(href="/sign-up") Sign up
   else 
     if !user.member
       a(href="/join-club") Join Club 
-    else 
-      p You're a member!
 
     if !user.admin
       a(href="/become-admin") Become Admin 
-    else 
-      p You're an admin!
-    
-    a(href="/create-message") Create Message 
-    p= user.email 
+
+    a(href="/create-message") Create Message
     a(href="/log-out") Log Out  
 
+block content
+  if user 
+    div.welcome 
+      h3.name-info Welcome, #{user.first_name}!
+      div.email-info Signed in as #{user.email}
   if messages 
-    for msg in messages 
-      .message 
-        h3= msg.title 
-        p= msg.message
-        if !user || !user.member 
-          div Written by Anonymous 
-        else 
-          div Written by #{msg.created_by.email} on #{msg.formatted_time}
+    .messages 
+      for msg in messages 
+        .message 
+          h3.title= msg.title 
+          p= msg.message
+          if !user || !user.member 
+            div Written by Anonymous - 
+              a.normal-link(href="/join-club") Join the club
+              |  to see who wrote this message! 
+          else 
+            div Written by #{msg.created_by.email} on #{msg.formatted_time}
 
-        if user && user.admin 
-          a(href=`/delete/${msg._id}`) Delete Message 
+          if user && user.admin 
+            a(href=`/delete/${msg._id}`) Delete Message 
 
   else 
     p No messages yet!

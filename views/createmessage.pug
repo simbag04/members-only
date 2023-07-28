@@ -1,24 +1,29 @@
 extends layout 
 
-block content 
-    h1= title 
-    form(action="/create-message" method="POST")
-        div.form-group
-            label(for="title")
-            input#title(type="text" 
-                        required="true" 
-                        name="title" 
-                        placeholder="Title"
-                        value=(message===undefined ? '' : message.title)) 
-            label(for="message") 
-            textarea#message(name="message", cols="30", rows="10" 
-                            placeholder="Message" 
-                            required="true"
-                            value=(message===undefined ? '' : message.message))
-        button(type="submit") Create Message
-
+block links 
     a(href="/") Home
 
-    if errors 
-        for error in errors
-            div= error.msg 
+block content 
+    form(action="/create-message" method="POST")
+        .sign-up-form
+            .input-group 
+                label(for="title")
+                input#title(type="text" 
+                            required="true" 
+                            name="title" 
+                            placeholder="Title"
+                            value=(message===undefined ? '' : message.title)) 
+
+            .input-group 
+                label(for="message") 
+                textarea#message(name="message", cols="30", rows="10" 
+                                placeholder="Message" 
+                                required="true"
+                                value=(message===undefined ? '' : message.message))
+            button(type="submit") Create Message
+
+
+    .errs 
+        if errors 
+            for error in errors
+                div= error.msg 

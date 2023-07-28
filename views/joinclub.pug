@@ -1,14 +1,18 @@
 extends layout 
 
-block content 
-    h1= title 
-    h3 Enter the passcode here to join the club
-    form(action="/join-club" method="POST") 
-        label(for="passcode") 
-        input#passcode(type="text" name="passcode" required="true" placeholder="Enter Passcode")
-        button(type="submit") Join
-
+block links 
     a(href="/") Home
-    if errors 
-        for err in errors 
-            p= err.msg
+
+block content 
+    form(action="/join-club" method="POST") 
+        .sign-up-form 
+            h3 Enter the passcode here to join the club
+            .form-group 
+                label(for="passcode") 
+                input#passcode(type="text" name="passcode" required="true" placeholder="Enter Passcode")
+            button(type="submit") Join
+
+    .errs 
+        if errors 
+            for err in errors 
+                p= err.msg

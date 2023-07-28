@@ -62,7 +62,7 @@ exports.become_admin_get = asyncHandler(async (req, res, next) => {
 
 exports.become_admin_post = asyncHandler(async(req, res, next) => {
     const user = await User.findOne({ email: res.locals.currentUser.email });
-    user.admin = req.body.admin ? true : false;
+    user.admin = true;
     await User.findByIdAndUpdate(user._id, user, {})
     res.redirect('/')
 })

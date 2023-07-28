@@ -1,13 +1,141 @@
+:root {
+  --button-background: #88D498;
+  --header-background: #C6DABF;
+  --body-background: #F3E9D2;
+}
+
 body {
-  padding: 50px;
+  margin: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
-
-.form-group {
   display: flex;
   flex-direction: column;
+  gap: 40px;
+  background-color: var(--body-background);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 40px 40px 40px;
+  background-color: var(--header-background);
+}
+
+.main {
+  padding: 0px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.links {
+  display: flex;
+  gap: 10px;
+}
+
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 40px;
+  font-size: 24px;
+}
+
+.messages {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+  padding: 20px; 
+  box-shadow: 0px 0px 10px black;
+  width: 100%;
+  border-radius: 5px;
+  background-color: var(--header-background);
+}
+
+.title {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+a:not(.normal-link), button {
+  text-decoration: none;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: var(--button-background);
+  border: none;
+  display: inline-block;
+}
+
+button:hover, a:hover {
+  transform: scale(1.1);
+  transition: transform 0.25s;
+}
+
+input, textarea {
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.admin {
+  font-size: 24px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.errs {
+  font-size: 20px;
+  color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
